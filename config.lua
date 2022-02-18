@@ -57,7 +57,7 @@ Config.Locations = {
         [7] = vector3(-437.55, 6009.59, 37.0), -- Paleto
     },
     ["impound"] = {
-        [1] = vector4(-191.994, -1162.22, 23.671, 84.76), -- Impound Lot
+        [1] = vector4(191.994, -1162.22, 23.671, 84.76), -- Impound Lot
     },
     ["helicopter"] = {
         [1] = vector4(450.43, -981.71, 44.08, 91.46), -- MRPD
@@ -112,10 +112,10 @@ Config.Locations = {
     },
     ["stations"] = {
         [1] = {label = "Police Station [Mission Row]", coords = vector4(438.67, -981.84, 30.69, 78.29)}, -- MRPD
-        [2] = {label = "Police Station [Davis]", coords = vector4(372.0, -1601.2, 30.05, 147.7)}, -- Davis
-        [3] = {label = "Police Station [La Mesa]", coords = vector4(832.55, -1290.11, 28.24, 245.37)}, -- La Mesa
-        [4] = {label = "Police Station [Sandy Shores]", coords = vector4(1834.37, 3677.47, 34.19, 32.16)}, -- Sandy
-        [5] = {label = "Police Station [Paleto Bay]", coords = vector4(-446.34, 6012.56, 32.29, 39.57)}, -- Paleto
+        -- [2] = {label = "Police Station [Davis]", coords = vector4(372.0, -1601.2, 30.05, 147.7)}, -- Davis
+        -- [3] = {label = "Police Station [La Mesa]", coords = vector4(832.55, -1290.11, 28.24, 245.37)}, -- La Mesa
+        [2] = {label = "Police Station [Sandy Shores]", coords = vector4(1834.37, 3677.47, 34.19, 32.16)}, -- Sandy
+        [3] = {label = "Police Station [Paleto Bay]", coords = vector4(-446.34, 6012.56, 32.29, 39.57)}, -- Paleto
     },
 }
 
