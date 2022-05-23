@@ -84,7 +84,7 @@ local function CreateObjectId()
 end
 
 local function IsVehicleOwned(plate)
-    local result = MySQL.Sync.fetchScalar('SELECT plate FROM player_vehicles WHERE plate = ?', {plate})
+    local result = MySQL.scalar.await('SELECT plate FROM player_vehicles WHERE plate = ?', {plate})
     return result
 end
 
@@ -477,7 +477,7 @@ RegisterNetEvent('police:server:SendTrackerLocation', function(coords, requestId
     TriggerClientEvent("qb-phone:client:addPoliceAlert", requestId, alertData)
 end)
 
-QBCore.Commands.Add('911p', Lang:t("commands.police_report"), {{name='message', help=Lang:t("commands.message_sent")}}, false, function(source, args)
+QBCore.Commands.Add('911p', Lang:t("commands.police_report"), {{name='message', help= Lang:t("commands.message_sent")}}, false, function(source, args)
 	local src = source
     local message
 	if args[1] then message = table.concat(args, " ") else message = Lang:t("commands.civilian_call") end
@@ -486,7 +486,7 @@ QBCore.Commands.Add('911p', Lang:t("commands.police_report"), {{name='message', 
     local players = QBCore.Functions.GetQBPlayers()
     for _, v in pairs(players) do
         if v.PlayerData.job.name == 'police' and v.PlayerData.job.onduty then
-            local alertData = {title = Lang:t("commands.emergency_call"), coords = {coords.x, coords.y, coords.z}, description = message}
+            local alertData = {title = Lang:t("commands.emergency_call"), coords = {x = coords.x, y = coords.y, z = coords.z}, description = message}
             TriggerClientEvent("qb-phone:client:addPoliceAlert", v.PlayerData.source, alertData)
             TriggerClientEvent('police:client:policeAlert', v.PlayerData.source, coords, message)
         end
@@ -571,7 +571,7 @@ end)
 
 QBCore.Functions.CreateCallback('police:GetImpoundedVehicles', function(_, cb)
     local vehicles = {}
-    MySQL.Async.fetchAll('SELECT * FROM player_vehicles WHERE state = ?', {2}, function(result)
+    MySQL.query('SELECT * FROM player_vehicles WHERE state = ?', {2}, function(result)
         if result[1] then
             vehicles = result
         end
@@ -616,7 +616,7 @@ end)
 AddEventHandler('onResourceStart', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         CreateThread(function()
-            MySQL.Async.execute("DELETE FROM stashitems WHERE stash='policetrash'")
+            MySQL.query("DELETE FROM stashitems WHERE stash='policetrash'")
         end)
     end
 end)
@@ -628,7 +628,7 @@ RegisterNetEvent('police:server:policeAlert', function(text)
     local players = QBCore.Functions.GetQBPlayers()
     for _, v in pairs(players) do
         if v.PlayerData.job.name == 'police' and v.PlayerData.job.onduty then
-            local alertData = {title = Lang:t('info.new_call'), coords = {coords.x, coords.y, coords.z}, description = text}
+            local alertData = {title = Lang:t('info.new_call'), coords = {x = coords.x, y = coords.y, z = coords.z}, description = text}
             TriggerClientEvent("qb-phone:client:addPoliceAlert", v.PlayerData.source, alertData)
             TriggerClientEvent('police:client:policeAlert', v.PlayerData.source, coords, text)
         end
@@ -637,7 +637,7 @@ end)
 
 RegisterNetEvent('police:server:TakeOutImpound', function(plate)
     local src = source
-    MySQL.Async.execute('UPDATE player_vehicles SET state = ? WHERE plate  = ?', {0, plate})
+    MySQL.update('UPDATE player_vehicles SET state = ? WHERE plate  = ?', {0, plate})
     TriggerClientEvent('QBCore:Notify', src, Lang:t("success.impound_vehicle_removed"), 'success')
 end)
 
@@ -847,12 +847,12 @@ RegisterNetEvent('police:server:Impound', function(plate, fullImpound, price, bo
     price = price and price or 0
     if IsVehicleOwned(plate) then
         if not fullImpound then
-            MySQL.Async.execute(
+            MySQL.query(
                 'UPDATE player_vehicles SET state = ?, depotprice = ?, body = ?, engine = ?, fuel = ? WHERE plate = ?',
                 {0, price, body, engine, fuel, plate})
             TriggerClientEvent('QBCore:Notify', src, Lang:t("info.vehicle_taken_depot", {price = price}))
         else
-            MySQL.Async.execute(
+            MySQL.query(
                 'UPDATE player_vehicles SET state = ?, body = ?, engine = ?, fuel = ? WHERE plate = ?',
                 {2, body, engine, fuel, plate})
             TriggerClientEvent('QBCore:Notify', src, Lang:t("info.vehicle_seized"))
