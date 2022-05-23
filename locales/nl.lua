@@ -116,7 +116,7 @@ local Translations = {
         red_hands = 'Rode handen',
         wide_pupils = 'Brede pupillen',
         red_eyes = 'Rode ogen',
-        weed_mell = 'Ruikt naar wiet',
+        weed_smell = 'Ruikt naar wiet',
         gunpowder = 'Kruitresten in kleding',
         chemicals = 'ruikt chemisch',
         heavy_breathing = 'Ademt zwaar',
@@ -127,6 +127,7 @@ local Translations = {
         heavy_alcohol = 'Ruikt erg naar alcohol',
         agitated = 'Geagiteerd - Tekenen van methgebruik',
         serial_not_visible = 'Serienummer niet zichtbaar...',
+        tobacco_smell = 'Ruikt naar tabak',
     },
     menu = {
         garage_title = 'Politievoertuigen',
