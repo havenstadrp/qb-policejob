@@ -17,7 +17,7 @@ Config.LicenseRank = 2
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true'
 Config.Locations = {
     ["duty"] = {
-        [1] = vector3(441.2143, -982.016, 30.689), -- MRPD
+        [1] = vector3(414.3593, -1023.98, 29.503), -- MRPD
 
         [2] = vector3(380.9806, -1595.41, 30.051), -- Davis
 
